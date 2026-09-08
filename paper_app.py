@@ -184,7 +184,7 @@ elif section.startswith("3.2"):
             c2.metric("RMSE",f"{m['RMSE']:.1f}")
             c3.metric("R²",f"{m['R2']:.3f}")
             c4.metric("방향성",f"{m['Dstat']:.0f}%")
-            st.caption(f"⏱ 실제 계산 시간: {elapsed:.2f}초 — 진짜로 방금 계산된 결과입니다")
+            st.caption(f"⏱ 실제 계산 시간: {elapsed:.2f}초")
 
 # ══════════════════════════════════════════════
 # 3.3 평가지표
@@ -199,7 +199,7 @@ elif section.startswith("3.3"):
 - **R²** (결정계수): 1에 가까울수록 변동을 잘 설명
 - **D-stat** (방향성 정확도): 상승·하락 방향을 맞춘 비율
 """)
-    st.markdown('<div class="step">직접 숫자를 넣어 지표가 어떻게 계산되는지 확인해보세요.</div>',unsafe_allow_html=True)
+    st.markdown('<div class="step">직접 숫자를 넣어 지표가 어떻게 계산되는지 확인.</div>',unsafe_allow_html=True)
     st.markdown("**간단 예제** — 실제값과 예측값을 입력")
     col1,col2=st.columns(2)
     actual_str=col1.text_input("실제값 (쉼표 구분)","2500,2600,2550,2700")
@@ -229,7 +229,7 @@ elif section.startswith("3.3"):
 elif section.startswith("4.1"):
     st.markdown('<div class="hero"><b>논문 4.1절 · 방법 성능 비교</b><br>'
                 '논문 표 2를 실시간으로 재현합니다 (전 방법 × 전 기간)</div>', unsafe_allow_html=True)
-    st.markdown('<div class="step">아래 버튼을 누르면 4가지 방법을 3가지 기간(단기·중기·장기)에 대해 모두 실제로 계산합니다. 다소 시간이 걸립니다.</div>',unsafe_allow_html=True)
+    st.markdown('<div class="step">아래 버튼을 누르면 4가지 방법을 3가지 기간(단기·중기·장기)에 대해 모두 실제로 계산합니다.</div>',unsafe_allow_html=True)
     if st.button("▶ 논문 표 2 전체 재현", type="primary"):
         X=df[["구리","환율","유가WTI"]].values.astype(float)
         y=df["LME가격"].values.astype(float)
