@@ -191,7 +191,7 @@ elif section.startswith("3.2"):
             c2.metric("RMSE",f"{m['RMSE']:.1f}")
             c3.metric("R²",f"{m['R2']:.3f}")
             c4.metric("방향성",f"{m['Dstat']:.0f}%")
-            st.caption(f"⏱ 계산 시간: {elapsed:.2f}초")
+            st.caption(f" {elapsed:.2f}")
 
 # ══════════════════════════════════════════════
 # 3.3 평가지표
