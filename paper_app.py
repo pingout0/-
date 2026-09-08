@@ -27,7 +27,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-NAVY="#13233A"; COPPER="#C87941"; STEEL="#5B7A99"; GREEN="#2E7D5B"; RED="#B0413E"
+NAVY="#5B8DD9"; COPPER="#E8A66B"; STEEL="#7BA3C9"; GREEN="#4CAF88"; RED="E57373"
 
 @st.cache_data
 def load_data():
