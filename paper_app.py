@@ -75,7 +75,7 @@ if section.startswith("3.1"):
         fig.add_vrect(x0=dd.iloc[0], x1="2020-03-01", fillcolor="green", opacity=0.1, line_width=0)
         fig.add_vrect(x0="2020-04-01", x1="2022-03-01", fillcolor="red", opacity=0.1, line_width=0)
         fig.add_vrect(x0="2022-04-01", x1=dd.iloc[-1], fillcolor="orange", opacity=0.1, line_width=0)
-        fig.update_layout(height=380, margin=dict(t=20,b=20), yaxis_title="LME ($/톤)")
+        fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font=dict(color="#888"), xaxis=dict(gridcolor="rgba(128,128,128,0.2)"), yaxis=dict(gridcolor="rgba(128,128,128,0.2)"), height=380, margin=dict(t=20,b=20), yaxis_title="LME ($/톤)")
         st.plotly_chart(fig, use_container_width=True)
         # 국면별 통계 실시간 계산
         ret = df['LME가격'].pct_change()*100
@@ -97,7 +97,7 @@ if section.startswith("3.1"):
                     vals=[lme.corr(s.shift(l)) for l in lags]
                     fig.add_trace(go.Scatter(x=list(lags),y=vals,name=name,line=dict(color=col,width=2),mode="lines+markers"))
                 fig.add_vline(x=0,line_dash="dash",line_color="gray")
-                fig.update_layout(height=340,margin=dict(t=20,b=20),xaxis_title="시차(개월): 음수=선행",yaxis_title="상관")
+                fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font=dict(color="#888"), xaxis=dict(gridcolor="rgba(128,128,128,0.2)"), yaxis=dict(gridcolor="rgba(128,128,128,0.2)"), height=340,margin=dict(t=20,b=20),xaxis_title="시차(개월): 음수=선행",yaxis_title="상관")
                 st.plotly_chart(fig,use_container_width=True)
                 # 수준 vs 변화율
                 rr=df[['LME가격','구리','유가WTI','환율']].pct_change().dropna()
@@ -124,7 +124,7 @@ if section.startswith("3.1"):
                 mon=df2.groupby('월')['수익률'].mean()
                 fig=go.Figure(go.Bar(x=list(range(1,13)),y=[mon[m] for m in range(1,13)],
                     marker_color=[COPPER if mon[m]>0 else STEEL for m in range(1,13)]))
-                fig.update_layout(height=320,margin=dict(t=20,b=20),xaxis_title="월",yaxis_title="평균 변화율(%)")
+                fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font=dict(color="#888"), xaxis=dict(gridcolor="rgba(128,128,128,0.2)"), yaxis=dict(gridcolor="rgba(128,128,128,0.2)"), height=320,margin=dict(t=20,b=20),xaxis_title="월",yaxis_title="평균 변화율(%)")
                 st.plotly_chart(fig,use_container_width=True)
                 c1,c2=st.columns(2)
                 c1.metric("F 통계량", f"{f_stat:.2f}")
@@ -176,7 +176,7 @@ elif section.startswith("3.2"):
             fig=go.Figure()
             fig.add_trace(go.Scatter(x=dates_te,y=yte,name="실제",line=dict(color=NAVY,width=2.5)))
             fig.add_trace(go.Scatter(x=dates_te,y=pred,name="예측",line=dict(color=COPPER,width=2,dash="dash")))
-            fig.update_layout(height=360,margin=dict(t=20,b=20),yaxis_title="LME ($/톤)",legend=dict(orientation="h",y=1.1))
+            fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font=dict(color="#888"), xaxis=dict(gridcolor="rgba(128,128,128,0.2)"), yaxis=dict(gridcolor="rgba(128,128,128,0.2)"), height=360,margin=dict(t=20,b=20),yaxis_title="LME ($/톤)",legend=dict(orientation="h",y=1.1))
             st.plotly_chart(fig,use_container_width=True)
             m=evaluate(yte,pred)
             c1,c2,c3,c4=st.columns(4)
@@ -184,7 +184,7 @@ elif section.startswith("3.2"):
             c2.metric("RMSE",f"{m['RMSE']:.1f}")
             c3.metric("R²",f"{m['R2']:.3f}")
             c4.metric("방향성",f"{m['Dstat']:.0f}%")
-            st.caption(f"⏱ 실제 계산 시간: {elapsed:.2f}초")
+            st.caption(f"⏱ 실제 계산 시간: {elapsed:.2f}초 — 진짜로 방금 계산된 결과입니다")
 
 # ══════════════════════════════════════════════
 # 3.3 평가지표
@@ -199,7 +199,7 @@ elif section.startswith("3.3"):
 - **R²** (결정계수): 1에 가까울수록 변동을 잘 설명
 - **D-stat** (방향성 정확도): 상승·하락 방향을 맞춘 비율
 """)
-    st.markdown('<div class="step">직접 숫자를 넣어 지표가 어떻게 계산되는지 확인.</div>',unsafe_allow_html=True)
+    st.markdown('<div class="step">직접 숫자를 넣어 지표가 어떻게 계산되는지 확인해보세요.</div>',unsafe_allow_html=True)
     st.markdown("**간단 예제** — 실제값과 예측값을 입력")
     col1,col2=st.columns(2)
     actual_str=col1.text_input("실제값 (쉼표 구분)","2500,2600,2550,2700")
@@ -229,7 +229,7 @@ elif section.startswith("3.3"):
 elif section.startswith("4.1"):
     st.markdown('<div class="hero"><b>논문 4.1절 · 방법 성능 비교</b><br>'
                 '논문 표 2를 실시간으로 재현합니다 (전 방법 × 전 기간)</div>', unsafe_allow_html=True)
-    st.markdown('<div class="step">아래 버튼을 누르면 4가지 방법을 3가지 기간(단기·중기·장기)에 대해 모두 실제로 계산합니다.</div>',unsafe_allow_html=True)
+    st.markdown('<div class="step">아래 버튼을 누르면 4가지 방법을 3가지 기간(단기·중기·장기)에 대해 모두 실제로 계산합니다. 다소 시간이 걸립니다.</div>',unsafe_allow_html=True)
     if st.button("▶ 논문 표 2 전체 재현", type="primary"):
         X=df[["구리","환율","유가WTI"]].values.astype(float)
         y=df["LME가격"].values.astype(float)
@@ -283,7 +283,7 @@ elif section.startswith("4.2"):
             names=["상수","β(구리)","β(환율)","β(유가)","β(구리²)","β(환율²)","β(유가²)"]
             cvs=[abs(np.std(beta_seq[:,j])/(np.mean(beta_seq[:,j])+1e-9)) for j in range(beta_seq.shape[1])]
             fig=go.Figure(go.Bar(x=names,y=cvs,marker_color=[GREEN if v<0.3 else (COPPER if v<5 else RED) for v in cvs]))
-            fig.update_layout(height=340,margin=dict(t=20,b=20),yaxis_title="변동계수 CV (log)",yaxis_type="log")
+            fig.update_layout(paper_bgcolor="rgba(0,0,0,0)", plot_bgcolor="rgba(0,0,0,0)", font=dict(color="#888"), xaxis=dict(gridcolor="rgba(128,128,128,0.2)"), yaxis=dict(gridcolor="rgba(128,128,128,0.2)"), height=340,margin=dict(t=20,b=20),yaxis_title="변동계수 CV (log)",yaxis_type="log")
             st.plotly_chart(fig,use_container_width=True)
             st.dataframe(pd.DataFrame({"계수":names,"변동계수(CV)":[round(v,2) for v in cvs]}),hide_index=True,use_container_width=True)
             st.markdown('<div class="res">💡 상수항만 안정(CV 0.08). 환율² 계수는 CV 40+로 극도로 불안정 → ML로 예측 불가능한 근본 이유</div>',unsafe_allow_html=True)
